@@ -1,0 +1,2 @@
+# File Integrity Checker
+# Standard Python libraries only. No external dependencies required.

@@ -1,0 +1,8 @@
+[2026-08-15 12:00:00] INFO: Application started.
+[2026-08-15 12:01:05] INFO: User 'admin' logged in successfully from 192.168.1.50.
+[2026-08-15 12:05:30] WARNING: Failed login attempt for user 'guest' from 10.0.0.12.
+[2026-08-15 12:10:00] INFO: Database backup completed.
+tampering attempt
+[2026-08-15 12:15:00] WARNING: Unauthorized tampering detected!
+[2026-08-15 12:20:00] WARNING: Unauthorized tampering detected!
+
