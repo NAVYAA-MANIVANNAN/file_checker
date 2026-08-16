@@ -1,6 +1,6 @@
 # File Integrity Checker – SHA-256 Log Tampering Detection Tool
 
-**Project URL:** [https://github.com/Navyaaabi/file_checker](https://github.com/Navyaaabi/file_checker)
+**Project URL:** [https://github.com/NAVYAA-MANIVANNAN/file_checker](https://github.com/NAVYAA-MANIVANNAN/file_checker)
 
 A professional, zero-dependency cybersecurity command-line tool built in Python to monitor files and directories for unauthorized changes, additions, or deletions. This tool calculates cryptographic **SHA-256 baseline hashes** and compares them against current states to detect integrity breaches in application logs, configuration files, and system files.
 
@@ -38,7 +38,7 @@ By creating a trusted snapshot of system files—known as a **baseline**—and v
 ### Setup
 Clone the repository:
 ```bash
-git clone https://github.com/Navyaaabi/file_checker.git
+git clone https://github.com/NAVYAA-MANIVANNAN/file_checker.git
 cd file_checker
 ```
 Or place the project files into your desired workspace directory:
