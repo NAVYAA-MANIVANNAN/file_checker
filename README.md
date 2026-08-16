@@ -8,7 +8,7 @@ The tool uses **SHA-256 cryptographic hashing** to create a trusted baseline and
 
 ## 🌐 Project URL
 
-https://github.com/NAVYAA-MANIVANNAN/file_checker
+https://roadmap.sh/projects/file-integrity-checker
 
 ---
 
@@ -442,7 +442,13 @@ Cybersecurity & Java Full Stack Developer
 
 https://github.com/NAVYAA-MANIVANNAN/file_checker
 
-If you find this project useful, consider giving the repository a ⭐ star.
+---
+
+## 📚 Project Reference
+
+This project was developed based on the File Integrity Checker project specification:
+
+https://roadmap.sh/projects/file-integrity-checker
 
 ---
 
