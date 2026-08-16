@@ -1,47 +1,63 @@
-# File Integrity Checker – SHA-256 Log Tampering Detection Tool
+# 🔐 File Integrity Checker – SHA-256 Log Tampering Detection Tool
 
-**Project URL:** [https://github.com/NAVYAA-MANIVANNAN/file_checker](https://github.com/NAVYAA-MANIVANNAN/file_checker)
+A professional, zero-dependency cybersecurity command-line tool built with Python to detect unauthorized changes, additions, and deletions in files and directories.
 
-A professional, zero-dependency cybersecurity command-line tool built in Python to monitor files and directories for unauthorized changes, additions, or deletions. This tool calculates cryptographic **SHA-256 baseline hashes** and compares them against current states to detect integrity breaches in application logs, configuration files, and system files.
-
----
-
-## 1. Project Overview
-
-In cybersecurity, **File Integrity Monitoring (FIM)** is a critical defense control. Attackers often modify log files (e.g., in `/var/log` or application directories) to cover their tracks, hide malicious payloads, or escalate privileges.
-
-By creating a trusted snapshot of system files—known as a **baseline**—and verifying it periodically, security administrators can detect changes immediately. This tool utilizes **SHA-256 hashing** (a secure, collision-resistant cryptographic hash function) to verify integrity. Comparing hashes is much more reliable than checking file sizes or modification times (timestamps), which can easily be falsified by advanced attackers using techniques like "timestomping".
+The tool uses **SHA-256 cryptographic hashing** to create a trusted baseline and continuously compare the current state of monitored files against that baseline.
 
 ---
 
-## 2. Features
+## 🌐 Project URL
 
-* **SHA-256 Cryptographic Integrity Check**: Reads files in 4096-byte chunks to maintain high performance and low memory footprints for large log files.
-* **Directory & Single File Support**: Seamlessly monitors recursively down directory paths or works directly with a single specific file.
-* **Baseline Database Storage**: Baseline data is securely stored outside the monitored directory at `~/.integrity_hashes.json` (resolves to the home folder on both Windows and Linux).
-* **VCS & Temp Cache Ignoring**: Automatically skips `.git`, `.venv`, `__pycache__`, `.vscode`, `.DS_Store`, and temporary files (e.g., ending with `~`).
-* **Complete Drift Detection**: Identifies:
-  * `MODIFIED`: Existing baseline files whose current hash mismatches.
-  * `NEW FILE`: Files added since the baseline was established.
-  * `DELETED`: Monitored baseline files that are no longer present.
-* **Interactive Baseline Updates**: Allows administrators to manually confirm and update baseline entries for legitimate updates (`update` command).
-* **Resilient Execution**: Gracefully catches and displays `Permission denied` errors instead of crashing when encountering locked or unreadable files.
+**GitHub Repository:**
+https://github.com/NAVYAA-MANIVANNAN/file_checker
 
 ---
 
-## 3. Installation & Requirements
+## 📌 Project Overview
 
-### Requirements
-* **Python 3.x**
-* No external packages required (uses Python standard libraries only: `sys`, `os`, `hashlib`, `json`, `datetime`).
+File Integrity Monitoring (FIM) is an important cybersecurity control used to detect unauthorized modifications to critical files.
 
-### Setup
-Clone the repository:
-```bash
-git clone https://github.com/NAVYAA-MANIVANNAN/file_checker.git
-cd file_checker
-```
-Or place the project files into your desired workspace directory:
+Attackers may modify or delete application logs, configuration files, or system files to hide their activities. Simply checking file timestamps or file sizes is not sufficient because these values can potentially be manipulated.
+
+This project solves the problem by creating a **SHA-256 hash baseline** for monitored files and comparing the baseline against their current state.
+
+Any change in file content results in a different SHA-256 hash, allowing the tool to identify potential integrity violations.
+
+---
+
+## 🚀 Features
+
+* 🔐 SHA-256 cryptographic hashing
+* 📁 Recursive directory monitoring
+* 📄 Single-file integrity checking
+* 🆕 New file detection
+* ✏️ Modified file detection
+* 🗑️ Deleted file detection
+* 💾 JSON-based baseline storage
+* 🔄 Interactive baseline updates
+* ⚡ 4096-byte chunk-based file reading
+* 🛡️ Permission error handling
+* 🚫 Automatic temporary/cache file exclusion
+* 🖥️ Windows and Linux compatible
+* 📦 Zero external dependencies
+
+---
+
+## 🛠️ Technology Stack
+
+| Technology | Purpose                       |
+| ---------- | ----------------------------- |
+| Python 3.x | Core development              |
+| hashlib    | SHA-256 hashing               |
+| os         | File and directory operations |
+| json       | Baseline database storage     |
+| datetime   | Timestamp handling            |
+| sys        | CLI argument handling         |
+
+---
+
+## 📂 Project Structure
+
 ```text
 file-integrity-checker/
 │
@@ -57,72 +73,89 @@ file-integrity-checker/
     └── test_integrity.py
 ```
 
-Ensure the main script is executable (on Linux/macOS):
+---
+
+## ⚙️ Installation
+
+### Requirements
+
+* Python 3.x
+* Git
+* No external Python packages required
+
+Clone the repository:
+
 ```bash
-chmod +x integrity-check.py
+git clone https://github.com/NAVYAA-MANIVANNAN/file_checker.git
+```
+
+Move into the project directory:
+
+```bash
+cd file_checker
 ```
 
 ---
 
-## 4. Usage
+## ▶️ Usage
 
-Show the CLI help menu:
+### Display Help
+
 ```bash
-python3 integrity-check.py help
-# or
-python3 integrity-check.py --help
+python integrity-check.py help
 ```
 
-### Initialize Baseline
-Establish the baseline hashes for a directory or file:
-```bash
-python3 integrity-check.py init ./logs
-```
+or:
 
-### Check File Integrity
-Run checks against the baseline hashes at any time:
 ```bash
-python3 integrity-check.py check ./logs
+python integrity-check.py --help
 ```
-
-### Update Baseline
-If you have verified that modifications are legitimate (e.g., expected log rotation or app update), update the trusted baseline database:
-```bash
-python3 integrity-check.py update ./logs
-```
-*Note: This command displays a diff of modifications, additions, and deletions, and prompts for confirmation (`y/N`) before writing changes.*
 
 ---
 
-## 5. Demonstration Walkthrough
+### 1. Initialize Baseline
 
-Follow these steps to demonstrate the tool:
+Create a trusted SHA-256 baseline for a file or directory:
 
-### Step 1: Initialize Baseline
-Run the `init` command on the sample log folder:
 ```bash
-python3 integrity-check.py init ./logs
+python integrity-check.py init ./logs
 ```
-*Output:*
+
+Example:
+
 ```text
 [+] Initializing file integrity...
 [+] SHA-256 hashes calculated.
 [+] Hashes stored successfully.
 ```
 
-### Step 2: Check Initial Status
-Run `check` to verify that everything matches the baseline:
-```bash
-python3 integrity-check.py check ./logs
+The baseline is stored outside the monitored directory:
+
+```text
+~/.integrity_hashes.json
 ```
-*Output:*
+
+---
+
+### 2. Check File Integrity
+
+Run an integrity check against the stored baseline:
+
+```bash
+python integrity-check.py check ./logs
+```
+
+If no files have changed:
+
 ```text
 [✓] logs/app.log
     Status: UNMODIFIED
-    SHA-256: 41818d6a8a47ff7be5a0720... (full hash)
+    SHA-256: 41818d6a8a47ff7be5a0720...
+
 ========================================
 INTEGRITY CHECK SUMMARY
 ========================================
+
 Unmodified : 1
 Modified   : 0
 New Files  : 0
@@ -133,28 +166,53 @@ Overall Status: SECURE
 ========================================
 ```
 
-### Step 3: Trigger Integrity Changes
-Make modifications, deletions, and additions to simulate an incident:
-1. **Modify** `logs/app.log` by appending a line (e.g. `[2026-08-15 12:15:00] INFO: Malicious action executed`).
-2. **Add** a new file `logs/unauthorized_script.py`.
-3. **Delete** a file if there were multiple (e.g., delete a log file).
+---
 
-### Step 4: Run Check and Detect Tampering
-Run the check tool:
-```bash
-python3 integrity-check.py check ./logs
+### 3. Simulate File Tampering
+
+Modify the sample log:
+
+```text
+logs/app.log
 ```
-*Output:*
+
+For example, append:
+
+```text
+[2026-08-15 12:15:00] INFO: Malicious action executed
+```
+
+You can also add a new file:
+
+```text
+logs/unauthorized_script.py
+```
+
+Then run:
+
+```bash
+python integrity-check.py check ./logs
+```
+
+---
+
+## 🚨 Tampering Detection
+
+Example output:
+
 ```text
 [!] logs/app.log
     Status: MODIFIED
     Reason: SHA-256 hash mismatch
+
 [+] logs/unauthorized_script.py
     Status: NEW FILE
     Reason: File was not present during initialization
+
 ========================================
 INTEGRITY CHECK SUMMARY
 ========================================
+
 Unmodified : 0
 Modified   : 1
 New Files  : 1
@@ -165,26 +223,231 @@ Overall Status: WARNING
 ========================================
 ```
 
-### Step 5: Update the Baseline
-If the changes are legitimate, run:
+---
+
+## 🔄 Update Baseline
+
+When a detected change is legitimate, the administrator can update the trusted baseline:
+
 ```bash
-python3 integrity-check.py update ./logs
+python integrity-check.py update ./logs
 ```
-*Output:*
+
+The tool displays the detected changes and requests confirmation.
+
+Example:
+
 ```text
 Pending Updates:
+
   [!] Modified: logs/app.log
   [+] New File: logs/unauthorized_script.py
+
 Do you want to update the baseline database with these changes? (y/N): y
+
 [+] Recalculating SHA-256 hash...
 [+] Baseline hash updated successfully.
 ```
 
 ---
 
-## 6. Security Concepts Learned
+## 🔍 Detection Types
 
-* **Cryptographic Hashing**: Using one-way mathematical functions to map arbitrary size data to a fixed-size signature (SHA-256 generates a unique 64-character hex string). Any minor file edit changes the hash entirely (the **avalanche effect**).
-* **Log Tampering Detection**: Understanding how malicious actors erase or alter traces of their activities by editing logs, and how cryptographic verification exposes these attempts.
-* **Baseline Comparison**: Separating trusted execution state from current runtime execution. Identifying drift across directories by tracking file lifecycle events (adds, modifications, deletions).
-* **Incident Detection & Security Monitoring**: Setting up automated guardrails for security controls to continuously verify compliance and trigger alerts on drift (`Overall Status: WARNING`).
+The tool identifies four major file integrity states:
+
+### ✏️ MODIFIED
+
+A file existed in the original baseline but its SHA-256 hash has changed.
+
+```text
+Reason: SHA-256 hash mismatch
+```
+
+### 🆕 NEW FILE
+
+A file exists in the monitored directory but was not present when the baseline was created.
+
+```text
+Reason: File was not present during initialization
+```
+
+### 🗑️ DELETED
+
+A file existed in the baseline but is no longer available in the monitored directory.
+
+### ✅ UNMODIFIED
+
+The current SHA-256 hash matches the trusted baseline hash.
+
+---
+
+## 🚫 Ignored Files
+
+The tool automatically ignores common development and temporary files/directories:
+
+```text
+.git
+.venv
+__pycache__
+.vscode
+.DS_Store
+temporary files ending with ~
+```
+
+This prevents unnecessary integrity alerts from development artifacts and cache files.
+
+---
+
+## 🔐 Security Concepts Demonstrated
+
+### 1. Cryptographic Hashing
+
+SHA-256 converts file contents into a fixed-length 64-character hexadecimal hash.
+
+Example:
+
+```text
+SHA-256:
+41818d6a8a47ff7be5a0720...
+```
+
+Even a small change in a file produces a completely different hash.
+
+---
+
+### 2. File Integrity Monitoring
+
+The project demonstrates how security teams can monitor critical files and identify unauthorized changes.
+
+---
+
+### 3. Log Tampering Detection
+
+Attackers may attempt to modify or delete logs to hide malicious activity.
+
+Hash-based integrity verification helps identify such changes.
+
+---
+
+### 4. Baseline Comparison
+
+The project establishes a trusted state and compares future file states against it.
+
+```text
+Trusted Baseline
+       ↓
+Current File State
+       ↓
+SHA-256 Comparison
+       ↓
+Integrity Result
+```
+
+---
+
+### 5. Incident Detection
+
+Detected changes are classified as:
+
+```text
+MODIFIED
+NEW FILE
+DELETED
+UNMODIFIED
+```
+
+The final result is reported as:
+
+```text
+SECURE
+```
+
+or:
+
+```text
+WARNING
+```
+
+---
+
+## 🧪 Testing
+
+The project includes a test directory:
+
+```text
+tests/
+└── test_integrity.py
+```
+
+Testing should cover:
+
+* File hashing
+* Baseline creation
+* Modified files
+* New files
+* Deleted files
+* Permission errors
+* Baseline updates
+
+---
+
+## 📦 Dependencies
+
+This project intentionally uses only Python standard libraries.
+
+No external packages are required.
+
+```text
+Python Standard Library
+├── sys
+├── os
+├── hashlib
+├── json
+└── datetime
+```
+
+---
+
+## 🎯 Use Cases
+
+This tool can be used for:
+
+* Application log monitoring
+* Configuration file monitoring
+* Security lab demonstrations
+* Cybersecurity learning
+* File tampering detection
+* Basic incident detection
+* Security operations training
+* System integrity monitoring
+
+---
+
+## ⚠️ Security Note
+
+This tool is intended for **educational, defensive, and authorized security monitoring purposes**.
+
+For production environments, the baseline database itself should be protected using appropriate access controls and preferably stored in a trusted location that unauthorized users cannot modify.
+
+---
+
+## 👩‍💻 Author
+
+**NAVYAA MANIVANNAN**
+
+Cybersecurity & Java Full Stack Developer
+
+---
+
+## 🔗 Repository
+
+⭐ **GitHub:**
+https://github.com/NAVYAA-MANIVANNAN/file_checker
+
+If you find this project useful, consider giving the repository a ⭐ star.
+
+---
+
+## 📜 License
+
+This project is intended for educational and cybersecurity learning purposes.
