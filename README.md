@@ -2,13 +2,12 @@
 
 A professional, zero-dependency cybersecurity command-line tool built with Python to detect unauthorized changes, additions, and deletions in files and directories.
 
-The tool uses **SHA-256 cryptographic hashing** to create a trusted baseline and continuously compare the current state of monitored files against that baseline.
+The tool uses **SHA-256 cryptographic hashing** to create a trusted baseline and compare the current state of monitored files against that baseline.
 
 ---
 
 ## 🌐 Project URL
 
-**GitHub Repository:**
 https://github.com/NAVYAA-MANIVANNAN/file_checker
 
 ---
@@ -19,7 +18,7 @@ File Integrity Monitoring (FIM) is an important cybersecurity control used to de
 
 Attackers may modify or delete application logs, configuration files, or system files to hide their activities. Simply checking file timestamps or file sizes is not sufficient because these values can potentially be manipulated.
 
-This project solves the problem by creating a **SHA-256 hash baseline** for monitored files and comparing the baseline against their current state.
+This project creates a **SHA-256 hash baseline** for monitored files and compares the baseline against their current state.
 
 Any change in file content results in a different SHA-256 hash, allowing the tool to identify potential integrity violations.
 
@@ -441,7 +440,6 @@ Cybersecurity & Java Full Stack Developer
 
 ## 🔗 Repository
 
-⭐ **GitHub:**
 https://github.com/NAVYAA-MANIVANNAN/file_checker
 
 If you find this project useful, consider giving the repository a ⭐ star.
